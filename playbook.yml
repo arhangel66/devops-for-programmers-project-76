@@ -7,3 +7,17 @@
     pip_install_packages:
       - name: docker
 
+
+  tasks:
+    - community.docker.docker_container:
+        name: app
+        # Обязатлеьно указываем тег, который хотим деплоить
+        # Если образа на сервере нет, Ansible его автоматически скачает
+        image: "redmine:5.0.2-bullseye"
+        restart_policy: always
+        # Запускаем если не запущен
+        state: started
+        # env_file: /Users/mikhail/w/learning/hexlet/devops-for-programmers-project-76/.env
+        ports:
+          - "80:3000"
+          - "443:3000"
