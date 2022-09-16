@@ -6,3 +6,6 @@ deploy:
 
 env:
 	cp  .env.example .env
+
+vault edit:
+	ansible-vault edit group_vars/webservers/vault.yml
