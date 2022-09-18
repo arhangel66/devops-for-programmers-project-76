@@ -2,10 +2,25 @@
   gather_facts: no
   roles:
     - geerlingguy.pip
+    - { role: datadog.datadog, become: yes }
+
 
   vars:
     pip_install_packages:
       - name: docker
+    datadog_api_key: "{{DATADOG_API_KEY}}"
+    datadog_site: "datadoghq.eu"
+    datadog_checks:
+      # Добавляем хелфчек, который запрашивает внешний адрес приложения,
+      # которое находится в кластере Kubernetes
+      http_check:
+        init_config:
+        instances:
+          - name: website
+            url: "{{WEBSITE_URL}}"
+          - name: droplet
+            url: "{{DROPLET_URL}}"
+
 
   tasks:
     - community.docker.docker_container:

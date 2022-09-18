@@ -1,7 +1,6 @@
 roles:
   # Install a role from Ansible Galaxy.
   - name: geerlingguy.pip
+  - name: datadog.datadog
 
 
-
-# to run requirements - run ` ansible-galaxy install -r requirements.yml `

@@ -2,7 +2,8 @@ install:
 	ansible-galaxy install -r requirements.yml
 
 deploy:
-	make env & ansible-playbook playbook.yml -i inventory.ini
+	make env & ansible-playbook playbook.yml -i inventory.ini --ask-vault-password
+
 
 env:
 	cp  .env.example .env
