@@ -1,5 +1,4 @@
 - hosts: all
-  gather_facts: no
   roles:
     - geerlingguy.pip
     - { role: datadog.datadog, become: yes }
@@ -23,26 +22,21 @@
 
 
   tasks:
+    - name: make env
+      ansible.builtin.template:
+        src: templates/.env.example
+        dest: /.env
+        mode: '0644'
+
     - community.docker.docker_container:
         name: app
-        # Обязатлеьно указываем тег, который хотим деплоить
-        # Если образа на сервере нет, Ansible его автоматически скачает
         image: "redmine:5.0.2-bullseye"
         restart_policy: always
-        # Запускаем если не запущен
         state: started
-        # env_file: /Users/mikhail/w/learning/hexlet/devops-for-programmers-project-76/.env
+        env_file: /.env
         ports:
           - "80:3000"
           - "443:3000"
-
-        env:
-          REDMINE_DB_POSTGRES: "{{REDMINE_DB_POSTGRES}}"
-          REDMINE_DB_USERNAME: "{{REDMINE_DB_USERNAME}}"
-          REDMINE_DB_PASSWORD: "{{REDMINE_DB_PASSWORD}}"
-          REDMINE_DB_DATABASE: "{{REDMINE_DB_DATABASE}}"
-          REDMINE_DB_PORT: "{{REDMINE_DB_PORT}}"
-
 
 
 
