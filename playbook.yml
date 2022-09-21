@@ -3,6 +3,10 @@
   roles:
     - geerlingguy.pip
 
+  vars:
+    pip_install_packages:
+      - name: docker
+
   tasks:
     - name: make env
       ansible.builtin.template:
