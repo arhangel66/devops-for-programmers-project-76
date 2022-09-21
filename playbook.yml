@@ -14,8 +14,9 @@
         dest: /.env
         mode: '0644'
 
-    - name: app
+    - name: start app
       community.docker.docker_container:
+        name: app
         image: "redmine:5.0.2-bullseye"
         restart_policy: always
         state: started
