@@ -7,7 +7,7 @@ vars:
     http_check:
       init_config:
       instances:
-        - name: website
-          url: "{{WEBSITE_URL}}"
-        - name: droplet
-          url: "{{DROPLET_URL}}"
+        - name: Application health check status
+          method: GET
+          timeout: 5
+          url: "http://localhost:80"
