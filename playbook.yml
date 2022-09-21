@@ -1,23 +1,7 @@
-- hosts: all
+- name: Deploy project
+  hosts: all
   roles:
     - geerlingguy.pip
-    - { role: datadog.datadog, become: yes }
-
-
-  vars:
-    pip_install_packages:
-      - name: docker
-    datadog_api_key: "{{DATADOG_API_KEY}}"
-    datadog_site: "datadoghq.eu"
-    datadog_checks:
-      http_check:
-        init_config:
-        instances:
-          - name: website
-            url: "{{WEBSITE_URL}}"
-          - name: droplet
-            url: "{{DROPLET_URL}}"
-
 
   tasks:
     - name: make env
@@ -37,5 +21,7 @@
           - "443:3000"
 
 
-
-
+- name: Monitoring
+  hosts: webservers
+  roles:
+    - { role: datadog.datadog, become: true }
